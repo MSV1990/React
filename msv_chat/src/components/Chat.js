@@ -3,9 +3,6 @@ import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
 import PageVisibility from 'react-page-visibility';
-navigator.serviceWorker.register('service-worker-custom.js');
-
-
 
 const URL = 'ws://st-chat.shas.tel'
 
@@ -29,7 +26,6 @@ if(localStorage.getItem('user')) {
 }
 
     this.ws.onopen = () => {
-      Notification.requestPermission()
       this.setState({
         status: 'Connected',
         style: 'Online',
@@ -47,16 +43,13 @@ if(localStorage.getItem('user')) {
           tag: message[0].from,
       };
 
-      function showNotification() {
         Notification.requestPermission(function(result) {
-          if (result === 'granted') {
+          if (result === 'granted' && message[0]) {
             navigator.serviceWorker.ready.then(function(registration) {
               registration.showNotification(`New message from ${message[0].from}`, options);
             });
           }
         });
-      }
-      showNotification()
         
       }
       }
@@ -65,7 +58,7 @@ if(localStorage.getItem('user')) {
 
     this.ws.onclose = () => {
       console.log('disconnected')
-      new Notification('Disconnected');
+      navigator.serviceWorker.showNotification('Disconnected');
         this.setState({
           status: 'Disconnected',
           style: 'Offline',
