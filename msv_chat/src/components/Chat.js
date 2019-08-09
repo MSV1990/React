@@ -120,11 +120,14 @@ if(localStorage.getItem('user')) {
           }>Close Me</button>
         
         {this.state.messages.map((message) =>
+        <div className='message'>
           <ChatMessage
             message={message.message}
             from={message.from}
             time={message.time}
-          />,
+          />
+          </div>
+          ,
         )}
       </div>
     )

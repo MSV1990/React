@@ -30,7 +30,9 @@ form{
 
 .App-header {
   background-color: #222;
-  height: 10vh;
+  height: 5vh;
+  width: 100vw;
+  position: fixed;
   padding: 20px;
   color: red;
 }
@@ -39,6 +41,12 @@ form{
   border-radius: 4px;
   background-color: lightblue;
   width: 10%;
+}
+
+.message{
+  word-break: break-all;
+  width: 20vw;
+  margin: 0 auto;
 }
 
 
