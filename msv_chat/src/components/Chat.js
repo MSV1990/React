@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ChatInput from './Chat_input'
 import ChatMessage from './Message'
+import Status from './Status'
 const URL = 'ws://st-chat.shas.tel'
 
 
@@ -19,8 +20,18 @@ if(localStorage.getItem('user')) {
 }
 
     this.ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log('connected')
+      Notification.requestPermission()
+      this.setState({
+        status: 'Connected',
+        style: 'Online',
+      })
+      const options = {
+        body: 'Welcome',
+        title: 'MsvChat',
+        vibrate: [200, 100, 200]
+      }
+      
+      const welcome = new Notification('Connected',options);
     }
 
     this.ws.onmessage = evt => {
@@ -34,6 +45,8 @@ if(localStorage.getItem('user')) {
       // automatically try to reconnect on connection loss
       this.setState({
         ws: new WebSocket(URL),
+        status: 'Disconnected',
+        style: 'Offline',
       })
     }
   }
@@ -42,18 +55,20 @@ if(localStorage.getItem('user')) {
     this.setState(state => ({ messages: message.concat(state.messages) }
         ))
     }
+
   submitMessage = messageString => {
     // on submitting the ChatInput form, send the message, add it to the list and reset the input
     const message = { from: this.state.from, message: messageString }
     this.ws.send(JSON.stringify(message))
-    console.log(message)
-    console.log(this.state.messages)
   }
+
+
 
   render() {
     
     return (
       <div>
+        <Status status={this.state.status} style={this.state.style}/>
         <label htmlFor="name">
           Name:&nbsp;
           <input
