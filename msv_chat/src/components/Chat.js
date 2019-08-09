@@ -25,7 +25,6 @@ if(localStorage.getItem('user')) {
 
     this.ws.onopen = () => {
       Notification.requestPermission()
-      new Notification(`${this.state.from}`)
       this.setState({
         status: 'Connected',
         style: 'Online',
@@ -36,7 +35,7 @@ if(localStorage.getItem('user')) {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      if(this.state.rotate){
+      if(this.state.rotate && message){
         var options = {
           body: message[0].message,
       };
@@ -49,9 +48,8 @@ if(localStorage.getItem('user')) {
 
     this.ws.onclose = () => {
       console.log('disconnected')
-      // automatically try to reconnect on connection loss
+      new WebSocket(URL)
       this.setState({
-        ws: new WebSocket(URL),
         status: 'Disconnected',
         style: 'Offline',
       })
