@@ -35,7 +35,7 @@ if(localStorage.getItem('user')) {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      if(this.state.rotate && message){
+      if(!this.state.rotate && message){
         var options = {
           body: message[0].message,
       };
