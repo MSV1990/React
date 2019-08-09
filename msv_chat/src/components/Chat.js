@@ -3,7 +3,10 @@ import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
 import PageVisibility from 'react-page-visibility';
-import Moment from 'react-moment'
+navigator.serviceWorker.register('service-worker-custom.js');
+
+
+
 const URL = 'ws://st-chat.shas.tel'
 
 
@@ -20,7 +23,9 @@ class Chat extends Component {
 
   componentDidMount() {
 if(localStorage.getItem('user')) {
-    this.setState.from = localStorage.getItem('user');
+    this.setState({
+      from: localStorage.getItem('user')
+    })
 }
 
     this.ws.onopen = () => {
@@ -35,11 +40,25 @@ if(localStorage.getItem('user')) {
       // on receiving a message, add it to the list of messages
       const message = JSON.parse(evt.data)
       this.addMessage(message)
-      if(!this.state.rotate && message){
-        var options = {
+      if(this.state.rotate && message){
+        const options = {
           body: message[0].message,
       };
-        new Notification(message[0].from, options);
+      function showNotification() {
+        Notification.requestPermission(function(result) {
+          if (result === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+              registration.showNotification('Vibration Sample', {
+                body: 'Buzz! Buzz!',
+                icon: '../images/touch/chrome-touch-icon-192x192.png',
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
+                tag: 'vibration-sample'
+              });
+            });
+          }
+        });
+      }
+      showNotification()
         
       }
       }
@@ -48,12 +67,22 @@ if(localStorage.getItem('user')) {
 
     this.ws.onclose = () => {
       console.log('disconnected')
-      new WebSocket(URL)
-      this.setState({
-        status: 'Disconnected',
-        style: 'Offline',
-      })
+      new Notification('Disconnected');
+        this.setState({
+          status: 'Disconnected',
+          style: 'Offline',
+        })
+        setTimeout( () => {
+          this.setState({
+            status: 'Disconnected',
+            style: 'Offline',
+          })}, 1000)
     }
+
+    this.ws.onerror = err => {
+      console.error('Socket encountered error: ', err.message, 'Closing socket');
+      this.ws.close();
+    };
   }
 
   handleVisibilityChange = isVisible => {
@@ -79,9 +108,10 @@ if(localStorage.getItem('user')) {
         <PageVisibility onChange={this.handleVisibilityChange}>
         </PageVisibility>
         <Status status={this.state.status} style={this.state.style}/>
-        <label htmlFor="name">
+        <label className="label" htmlFor="name">
           Name:&nbsp;
           <input
+          className="name_input"
             type="text"
             id={'name'}
             placeholder={'Enter your name...'}
@@ -93,6 +123,11 @@ if(localStorage.getItem('user')) {
           ws={this.ws}
           onSubmitMessage={messageString => this.submitMessage(messageString)}
         />
+        <button onClick={ (e) => {
+          e.preventDefault();
+          this.ws.close()}
+          }>Close Me</button>
+        
         {this.state.messages.map((message) =>
           <ChatMessage
             message={message.message}

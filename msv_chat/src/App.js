@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Chat from './components/Chat'
 
@@ -7,10 +6,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <div className="spin">
         <p>
-        <span className='heart'>&#10084;</span> Welcome to MsvChat <span className='heart'>&#10084;</span> 
+        Welcome to Msv1990 Chat
         </p>
         </div>
       </header>
