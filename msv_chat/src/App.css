@@ -44,9 +44,13 @@ form{
 }
 
 .message{
-  word-break: break-all;
-  width: 20vw;
-  margin: 0 auto;
+  overflow-x: wrap;
+  width: 100vw;
+  margin: 10vh auto;
+}
+
+.message:first-child{
+  margin-top: 100vh;
 }
 
 
