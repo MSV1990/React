@@ -2,21 +2,11 @@ import React, { Component } from 'react'
 import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
-import ReconnectingWebSocket from 'reconnecting-websocket';
-import WS from 'ws';
 import icons_chats from '../imgs/icons_chats.png'
 
 
+
 const URL = 'ws://st-chat.shas.tel';
-
-const options = {
-  WebSocket: WS,
-  maxReconnectionDelay: 5000,
-  minReconnectionDelay: 1000 + Math.random() * 4000,
-  connectionTimeout: 2000,
-  maxRetries: Infinity,
-};
-
 
 class Chat extends Component {
   state = {
@@ -24,7 +14,7 @@ class Chat extends Component {
     messages: [],
   }
 
-  ws = new ReconnectingWebSocket(URL, [], options);
+  ws = new WebSocket(URL);
 
  
 
@@ -62,6 +52,9 @@ if(localStorage.getItem('User')) {
           status: 'Disconnected',
           style: 'Offline',
         })
+        this.setState({
+          ws: new WebSocket(URL),
+        })
     }
 
     this.ws.onerror = err => {
@@ -79,21 +72,21 @@ if(localStorage.getItem('User')) {
     const message = { from: this.state.from, message: messageString }
     this.ws.send(JSON.stringify(message))
   }
-changeName = (event) =>{
-  this.setState({ from: event })
-  localStorage.setItem('User', event)
-}
 
+  changeName = (newName) =>{
+    this.setState({ from: newName })
+    localStorage.setItem('User', newName)
+  }
 
   render() {
     
     return (
-      <div>
+      <>
         <Status status={this.state.status} style={this.state.style}/>
-        <label className="label" htmlFor="name">
+        <div className="userNameContainer">
+        <label className="userNameLabel" htmlFor="name">
           Name:&nbsp;
-          <input
-          className="name_input"
+          <input className="userNameInput"
             type="text"
             id={'name'}
             placeholder={'Enter your name...'}
@@ -101,17 +94,14 @@ changeName = (event) =>{
             onChange={e => this.changeName(e.target.value)} 
           />
         </label>
-        <ChatInput
+        </div>
+        <ChatInput className="messageInput"
           ws={this.ws}
           onSubmitMessage={messageString => this.submitMessage(messageString)}
         />
-        <button onClick={ (e) => {
-          e.preventDefault();
-          this.ws.close()}
-          }>Close Me</button>
-        
-        {this.state.messages.map((message) =>
-        <div className='message'>
+        <div className="messagesContainer">
+        {this.state.messages.map((message, index) =>
+        <div className='message' key={index}>
           <ChatMessage
             message={message.message}
             from={message.from}
@@ -121,7 +111,8 @@ changeName = (event) =>{
           </div>
           ,
         )}
-      </div>
+        </div>
+      </>
     )
   }
 }

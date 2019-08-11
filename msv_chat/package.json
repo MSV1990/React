@@ -32,5 +32,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "react-websocket": "^2.0.1"
+  }
 }

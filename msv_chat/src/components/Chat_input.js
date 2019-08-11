@@ -11,6 +11,7 @@ class ChatInput extends Component {
 
   render() {
     return (
+      <>
       <form
         action="."
         onSubmit={e => {
@@ -28,6 +29,7 @@ class ChatInput extends Component {
         />
         <input type="submit" value={'Send'} />
       </form>
+      </>
     )
   }
 }
