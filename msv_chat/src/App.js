@@ -7,9 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="spin">
-        <p>
-        Welcome to Msv1990 Chat
-        </p>
+        <h4>Welcome to Msv1990 Chat</h4>
         </div>
       </header>
       <Chat />

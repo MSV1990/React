@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Websocket from 'react-websocket';
 import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
@@ -14,10 +15,6 @@ class Chat extends Component {
     messages: [],
   }
 
-  ws = new WebSocket(URL);
-
- 
-
   componentDidMount() {
 if(localStorage.getItem('User')) {
     this.setState({
@@ -25,43 +22,38 @@ if(localStorage.getItem('User')) {
     })
 }
 
-    this.ws.onopen = () => {
-      this.setState({
-        status: 'Connected',
-        style: 'Online',
-      })
-      Notification.requestPermission();
-    }
-
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.addMessage(message);
-      if(document.hidden) {
-        const options = {
-          body: message[0].message,
-          icon: icons_chats,
-      };
-          new Notification(`New message from ${message[0].from}`, options);
-        }
-    }
- 
-    this.ws.onclose = () => {
-      console.log('disconnected')
-      new Notification('Disconnected');
-        this.setState({
-          status: 'Disconnected',
-          style: 'Offline',
-        })
-        this.setState({
-          ws: new WebSocket(URL),
-        })
-    }
-
-    this.ws.onerror = err => {
-      console.error('Socket encountered error: ', err.message, 'Closing socket');
-      this.ws.close();
-    };
   }
+
+  wsOpen = () => {
+    this.setState({
+      status: 'Connected',
+      style: 'Online',
+    })
+    Notification.requestPermission();
+  }
+
+  wsMessage = (data) => {
+    const message = JSON.parse(data);
+    this.addMessage(message);
+    console.log(message)
+    if(document.hidden) {
+      const options = {
+        body: message[0].message,
+        icon: icons_chats,
+    };
+        new Notification(`New message from ${message[0].from}`, options);
+      }
+  }
+
+  wsClose = () => {
+    console.log('disconnected')
+    new Notification('Disconnected');
+      this.setState({
+        status: 'Disconnected',
+        style: 'Offline',
+      })
+  }
+  
 
   addMessage = (message) =>{
     this.setState(state => ({ messages: message.concat(state.messages) }
@@ -70,10 +62,10 @@ if(localStorage.getItem('User')) {
 
   submitMessage = messageString => {
     const message = { from: this.state.from, message: messageString }
-    this.ws.send(JSON.stringify(message))
+    this.refWebSocket.sendMessage(JSON.stringify(message))
   }
 
-  changeName = (newName) =>{
+  changeName = (newName) => {
     this.setState({ from: newName })
     localStorage.setItem('User', newName)
   }
@@ -82,6 +74,14 @@ if(localStorage.getItem('User')) {
     
     return (
       <>
+      <Websocket url={URL}
+       onMessage={this.wsMessage.bind(this)}
+       onClose={this.wsClose.bind(this)}
+       onOpen={this.wsOpen.bind(this)}
+       reconnect={true} debug={true}
+       ref={Websocket => {
+       this.refWebSocket = Websocket}}/>
+             
         <Status status={this.state.status} style={this.state.style}/>
         <div className="userNameContainer">
         <label className="userNameLabel" htmlFor="name">
