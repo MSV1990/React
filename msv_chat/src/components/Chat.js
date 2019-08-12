@@ -8,6 +8,7 @@ import icons_chats from '../imgs/icons_chats.png'
 
 
 const URL = 'ws://st-chat.shas.tel';
+let flag = true;
 
 class Chat extends Component {
   state = {
@@ -29,6 +30,11 @@ if(localStorage.getItem('User')) {
       status: 'Connected',
       style: 'Online',
     })
+    const options = {
+      icon: icons_chats,
+  };
+    flag = true;
+    new Notification('Connected', options)
     Notification.requestPermission();
   }
 
@@ -44,14 +50,21 @@ if(localStorage.getItem('User')) {
         new Notification(`New message from ${message[0].from}`, options);
       }
   }
-
+  
   wsClose = () => {
     console.log('disconnected')
-    new Notification('Disconnected');
-      this.setState({
-        status: 'Disconnected',
-        style: 'Offline',
-      })
+    
+    if(flag){
+      const options = {
+        icon: icons_chats,
+    };
+    new Notification('Disconnected', options);
+    flag = false;
+    this.setState({
+      status: 'Disconnected',
+      style: 'Offline',
+    })
+    }
   }
   
 
@@ -83,6 +96,7 @@ if(localStorage.getItem('User')) {
        this.refWebSocket = Websocket}}/>
              
         <Status status={this.state.status} style={this.state.style}/>
+        <div className = 'bottomInputPanel'>
         <div className="userNameContainer">
         <label className="userNameLabel" htmlFor="name">
           Name:&nbsp;
@@ -96,9 +110,9 @@ if(localStorage.getItem('User')) {
         </label>
         </div>
         <ChatInput className="messageInput"
-          ws={this.ws}
           onSubmitMessage={messageString => this.submitMessage(messageString)}
         />
+        </div>
         <div className="messagesContainer">
         {this.state.messages.map((message, index) =>
         <div className='message' key={index}>
