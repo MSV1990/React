@@ -14,7 +14,7 @@ const URL = 'ws://st-chat.shas.tel';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
-
+serviceWorker.register('sw.js');
 let flag = true;
 
 class Chat extends Component {
