@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^6.3.5",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -10,7 +11,8 @@
     "react-moment": "^0.9.2",
     "react-scripts": "3.0.1",
     "react-websocket": "^2.0.1",
-    "sw-precache-webpack-plugin": "^0.11.5"
+    "sw-precache-webpack-plugin": "^0.11.5",
+    "web-push": "^3.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
