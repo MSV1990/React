@@ -11,9 +11,6 @@ import * as serviceWorker from '../serviceWorker';
 
 
 const URL = 'ws://st-chat.shas.tel';
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
 serviceWorker.register('sw.js');
 let flag = true;
 
@@ -36,10 +33,9 @@ if(localStorage.getItem('User')) {
   showNotification = (title,options) => {
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
-        navigator.serviceWorker.ready.then(function(registration) {
-          console.log(registration);
-          registration.showNotification(title, options);
-        });
+        navigator.serviceWorker.ready.then(registration => {
+          registration.showNotification(title,options);
+      })
       }
     });
     
