@@ -6,12 +6,10 @@ import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
 import badgeicon from '../imgs/badge.png'
 import * as serviceWorker from '../serviceWorker';
-// import * as firebase from "firebase/app"
-// import * as messaging from "firebase/messaging"
 
 
 const URL = 'ws://st-chat.shas.tel';
-serviceWorker.register('sw.js');
+serviceWorker.register('worker.js')
 let flag = true;
 
 class Chat extends Component {
@@ -31,9 +29,9 @@ if(localStorage.getItem('User')) {
 }
 
   showNotification = (title,options) => {
-    window.Notification.requestPermission(function(result) {
+    Notification.requestPermission(function(result) {
       if (result === 'granted') {
-        window.navigator.serviceWorker.ready.then(registration => {
+       navigator.serviceWorker.ready.then(registration => {
           registration.showNotification(title,options);
       })
       }
