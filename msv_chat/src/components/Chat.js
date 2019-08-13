@@ -4,10 +4,7 @@ import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
-import * as serviceWorker from '../serviceWorker'
 
-
-navigator.serviceWorker.register('service-worker-custom.js');
 
 const URL = 'ws://st-chat.shas.tel';
 let flag = true;
@@ -56,7 +53,6 @@ if(localStorage.getItem('User')) {
   wsMessage = (data) => {
     const message = JSON.parse(data);
     this.addMessage(message);
-    console.log(message)
     if(document.hidden) {
       const options = {
         body: message[0].message,
