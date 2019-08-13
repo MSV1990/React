@@ -4,8 +4,10 @@ import ChatInput from './Chat_input'
 import ChatMessage from './Message'
 import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
+import * as serviceWorker from '../serviceWorker'
 
 
+navigator.serviceWorker.register('service-worker-custom.js');
 
 const URL = 'ws://st-chat.shas.tel';
 let flag = true;
@@ -25,6 +27,18 @@ if(localStorage.getItem('User')) {
 
   }
 
+
+  
+
+  showNotification = (title,options) => {
+    Notification.requestPermission(function(result) {
+      if (result === 'granted') {
+        navigator.serviceWorker.ready.then(function(registration) {
+          registration.showNotification(title, options);
+        });
+      }
+    });
+  }
   wsOpen = () => {
     this.setState({
       status: 'Connected',
@@ -32,9 +46,10 @@ if(localStorage.getItem('User')) {
     })
     const options = {
       icon: icons_chats,
+      vibrate: [200, 100, 200, 100, 200, 100, 200],
   };
     flag = true;
-    new Notification('Connected', options)
+    this.showNotification('Connected', options)
     Notification.requestPermission();
   }
 
@@ -47,7 +62,7 @@ if(localStorage.getItem('User')) {
         body: message[0].message,
         icon: icons_chats,
     };
-        new Notification(`New message from ${message[0].from}`, options);
+    this.showNotification(`New message from ${message[0].from}`, options);
       }
   }
   
@@ -58,7 +73,7 @@ if(localStorage.getItem('User')) {
       const options = {
         icon: icons_chats,
     };
-    new Notification('Disconnected', options);
+    this.showNotification('Disconnected', options);
     flag = false;
     this.setState({
       status: 'Disconnected',
