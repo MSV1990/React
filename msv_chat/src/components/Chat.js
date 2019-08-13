@@ -58,8 +58,9 @@ if(localStorage.getItem('User')) {
 
   wsMessage = (data) => {
     const message = JSON.parse(data);
+    console.log(message);
     this.addMessage(message);
-    if(document.hidden) {
+    if(true) {
       const options = {
         body: message[0].message,
         icon: icons_chats,
@@ -106,7 +107,6 @@ if(localStorage.getItem('User')) {
     
     return (
       <>
-      <button type="button" id="subscribe" onClick={this.subscribe}>Watch</button>
       <Websocket url={URL}
        onMessage={this.wsMessage.bind(this)}
        onClose={this.wsClose.bind(this)}
