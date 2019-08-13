@@ -33,6 +33,5 @@
     ]
   },
   "devDependencies": {
-    "react-websocket": "^2.0.1"
   }
 }

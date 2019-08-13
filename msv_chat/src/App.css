@@ -51,6 +51,8 @@ form{
   border-radius: 4px;
   width: 60%;
   height: 5vh;
+  left: 10vw;
+  position: relative;
   background-color: lightblue;
 }
 .userNameLabel {
@@ -70,6 +72,7 @@ form{
 .userNameInput{
   background-color: lightblue;
   border-radius: 4px;
+  width: 10vw;
 }
 .messagesContainer{
   margin-top: 5vh;
