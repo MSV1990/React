@@ -11,7 +11,10 @@ import * as serviceWorker from '../serviceWorker';
 
 
 const URL = 'ws://st-chat.shas.tel';
-navigator.serviceWorker.register('sw.js');
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
 let flag = true;
 
 class Chat extends Component {
