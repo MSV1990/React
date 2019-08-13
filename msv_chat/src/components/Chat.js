@@ -31,9 +31,9 @@ if(localStorage.getItem('User')) {
 }
 
   showNotification = (title,options) => {
-    Notification.requestPermission(function(result) {
+    window.Notification.requestPermission(function(result) {
       if (result === 'granted') {
-        navigator.serviceWorker.ready.then(registration => {
+        window.navigator.serviceWorker.ready.then(registration => {
           registration.showNotification(title,options);
       })
       }
@@ -57,7 +57,6 @@ if(localStorage.getItem('User')) {
 
   wsMessage = (data) => {
     const message = JSON.parse(data);
-    console.log(message);
     this.addMessage(message);
     if(document.hidden && message[0]) {
       const options = {

@@ -65,14 +65,11 @@ form{
 
 .userNameContainer{
   position:fixed;
-  bottom: 8vh;
-  z-index: 1;
 }
 
 .userNameInput{
   background-color: lightblue;
   border-radius: 4px;
-  width: 10vw;
 }
 
 .messagesContainer{
