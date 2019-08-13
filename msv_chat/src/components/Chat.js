@@ -49,7 +49,6 @@ if(localStorage.getItem('User')) {
     })
     const options = {
       icon: icons_chats,
-      vibrate: [200, 100, 200, 100, 200, 100, 200],
       badge: badgeicon,
   };
     flag = true;
@@ -60,7 +59,7 @@ if(localStorage.getItem('User')) {
     const message = JSON.parse(data);
     console.log(message);
     this.addMessage(message);
-    if(true) {
+    if(document.hidden && message[0]) {
       const options = {
         body: message[0].message,
         icon: icons_chats,
