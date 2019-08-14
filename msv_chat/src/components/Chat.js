@@ -24,13 +24,13 @@ if(localStorage.getItem('User')) {
     this.setState({
       from: localStorage.getItem('User')
     })
-    navigator.serviceWorker.register('worker.js');
 }
 
 
 }
 
   showNotification = (title,options) => {
+    navigator.serviceWorker.register('worker.js');
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
        navigator.serviceWorker.ready.then(registration => {
