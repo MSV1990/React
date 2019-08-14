@@ -24,6 +24,7 @@ if(localStorage.getItem('User')) {
     this.setState({
       from: localStorage.getItem('User')
     })
+    navigator.serviceWorker.register('worker.js');
 }
 
 
@@ -57,14 +58,6 @@ if(localStorage.getItem('User')) {
   wsMessage = (data) => {
     const message = JSON.parse(data);
     this.addMessage(message);
-    // if(document.hidden && message[0]) {
-    //   const options = {
-    //     body: message[0].message,
-    //     icon: icons_chats,
-    //     badge: badgeicon,
-    // };
-    // this.showNotification(`New message from ${message[0].from}`, options);
-    //   }
   }
   
   wsClose = () => {
