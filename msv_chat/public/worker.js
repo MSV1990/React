@@ -31,6 +31,7 @@ function connect(){
             body: message[0].message,
             icon: '../src/imgs/icons_chats.png',
             badge: '../src/imgs/badge.png',
+            vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500],
         };
         if(!clientIsVisible){
         self.registration.showNotification(`New message from ${message[0].from}`, options);
