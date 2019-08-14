@@ -9,7 +9,10 @@ import * as serviceWorker from '../serviceWorker';
 
 
 const URL = 'wss://wssproxy.herokuapp.com';
-self.navigator.serviceWorker.register('worker.js')
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('worker.js');
+}
+
 let flag = true;
 
 class Chat extends Component {
