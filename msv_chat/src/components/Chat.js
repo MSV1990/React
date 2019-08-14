@@ -8,7 +8,7 @@ import badgeicon from '../imgs/badge.png'
 
 const URL = 'wss://wssproxy.herokuapp.com';
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('worker.js');
+  window.navigator.serviceWorker.register('worker.js');
 }
 
 let flag = true;
@@ -30,7 +30,7 @@ if(localStorage.getItem('User')) {
 }
 
   showNotification = (title,options) => {
-    navigator.serviceWorker.register('worker.js');
+    window.navigator.serviceWorker.register('worker.js');
     Notification.requestPermission(function(result) {
       if (result === 'granted') {
        navigator.serviceWorker.ready.then(registration => {
