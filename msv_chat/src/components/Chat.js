@@ -5,8 +5,6 @@ import ChatMessage from './Message'
 import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
 import badgeicon from '../imgs/badge.png'
-import * as serviceWorker from '../serviceWorker';
-
 
 const URL = 'wss://wssproxy.herokuapp.com';
 if ('serviceWorker' in navigator) {
@@ -59,14 +57,14 @@ if(localStorage.getItem('User')) {
   wsMessage = (data) => {
     const message = JSON.parse(data);
     this.addMessage(message);
-    if(document.hidden && message[0]) {
-      const options = {
-        body: message[0].message,
-        icon: icons_chats,
-        badge: badgeicon,
-    };
-    this.showNotification(`New message from ${message[0].from}`, options);
-      }
+    // if(document.hidden && message[0]) {
+    //   const options = {
+    //     body: message[0].message,
+    //     icon: icons_chats,
+    //     badge: badgeicon,
+    // };
+    // this.showNotification(`New message from ${message[0].from}`, options);
+    //   }
   }
   
   wsClose = () => {
