@@ -29,6 +29,16 @@ form{
   bottom: 0.1vh;
   width: 100%;
 }
+.button{
+  background-image: url('./imgs/icons_chats.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 0;
+  width: 32px;
+  height: 36px;
+  margin-left: 10px;
+
+}
 
 .Offline{
   position: fixed;

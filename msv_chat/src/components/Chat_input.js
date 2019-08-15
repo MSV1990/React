@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import EmojiPicker from 'emoji-picker-react';
 class ChatInput extends Component {
   static propTypes = {
     onSubmitMessage: PropTypes.func.isRequired,
@@ -27,7 +27,7 @@ class ChatInput extends Component {
           value={this.state.message}
           onChange={e => this.setState({ message: e.target.value })}
         />
-        <input type="submit" value={'Send'} />
+        <input className="button" value={'           '} type="submit" />
       </form>
       </>
     )
