@@ -23,7 +23,6 @@ function connect(){
              break;
            }
          }
-         console.log(clientIsVisible);
          return clientIsVisible;
        });
         const message = JSON.parse(evt.data);
@@ -31,7 +30,7 @@ function connect(){
             body: message[0].message,
             icon: 'https://raw.githubusercontent.com/gauntface/web-push-book/master/src/favicon.ico',
             badge: 'https://raw.githubusercontent.com/gauntface/web-push-book/master/src/images/demos/badge-128x128.png',
-            vibrate: [500,500,500],
+            vibrate: [100,100,100],
         };
         if(!clientIsVisible){
         self.registration.showNotification(`New message from ${message[0].from}`, options);

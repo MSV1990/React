@@ -59,9 +59,7 @@ if(localStorage.getItem('User')) {
     this.addMessage(message);
   }
   
-  wsClose = () => {
-    console.log('disconnected')
-    
+  wsClose = () => {  
     if(flag){
       const options = {
         icon: icons_chats,
