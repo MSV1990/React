@@ -29,9 +29,9 @@ function connect(){
         const message = JSON.parse(evt.data);
         const options = {
             body: message[0].message,
-            icon: '../src/imgs/icons_chats.png',
-            badge: '../src/imgs/badge.png',
-            vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500],
+            icon: 'https://raw.githubusercontent.com/gauntface/web-push-book/master/src/favicon.ico',
+            badge: 'https://raw.githubusercontent.com/gauntface/web-push-book/master/src/images/demos/badge-128x128.png',
+            vibrate: [500,500,500],
         };
         if(!clientIsVisible){
         self.registration.showNotification(`New message from ${message[0].from}`, options);
