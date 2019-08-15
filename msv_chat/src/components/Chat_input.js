@@ -63,8 +63,10 @@ class ChatInput extends Component {
    <Picker 
    onSelect={this.addEmoji}
    style={{ position: 'fixed', bottom: '6vw', left: '0vw', width: '45vw', }}
-   title='Pick your emoji…' emoji='point_up'
    set='apple'
+   defaultSkin={6}
+   showPreview={false}
+   showSkinTones={false}
     />
      </span>
       </>

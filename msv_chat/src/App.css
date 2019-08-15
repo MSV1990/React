@@ -1,3 +1,8 @@
+@media (max-width: 500px){
+  .message{
+    width: 100vw;
+  }
+}
  .App {
   text-align: center;
   background-color: rgb(0, 0, 0);
