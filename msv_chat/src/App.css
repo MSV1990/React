@@ -30,6 +30,8 @@ form{
   width: 100%;
 }
 .button{
+  border: none;
+  background-color: #222;
   background-image: url('./imgs/icons_chats.png');
   background-repeat: no-repeat;
   background-size: 100%;
@@ -64,10 +66,6 @@ form{
   overflow-wrap: break-word;
   border-radius: 5px;
 }
-.messagesContainer:nth-child(2n){
-  background-color: #f1f1f1;
-}
-
 
 
 .message_input{
