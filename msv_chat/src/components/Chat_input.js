@@ -30,7 +30,6 @@ class ChatInput extends Component {
   }
 
   addEmoji = (e) => {
-    console.log(e)
     let emoji = e.native;
     this.setState({
       message: this.state.message + emoji
