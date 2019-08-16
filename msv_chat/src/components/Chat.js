@@ -49,6 +49,7 @@ if(localStorage.getItem('User')) {
     const options = {
       icon: icons_chats,
       badge: badgeicon,
+      vibrate: [500],
   };
     flag = true;
     this.showNotification('Welcome to MSV1990 chat', options)
@@ -64,6 +65,7 @@ if(localStorage.getItem('User')) {
       const options = {
         icon: icons_chats,
         badge: badgeicon,
+        vibrate: [500],
     };
     this.showNotification('Disconnected', options);
     flag = false;
