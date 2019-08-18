@@ -6,7 +6,7 @@ import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
 import badgeicon from '../imgs/badge.png'
 
-const URL = 'https://msvaesome.firebaseapp.com';
+const URL = 'wss://msvaesome.firebaseapp.com';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('worker.js');
 }
