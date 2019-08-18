@@ -1,4 +1,4 @@
-const URL = 'wss://pedantic-booth-602e89.netlify.com/';
+const URL = 'wss://msvaesome.firebaseapp.com';
 let ws;
 let interval;
 
