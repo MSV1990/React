@@ -1,4 +1,4 @@
-const URL = 'wss://msvaesome.firebaseapp.com';
+const URL = 'https://msvaesome.firebaseapp.com';
 let ws;
 let interval;
 
