@@ -6,7 +6,7 @@ import Status from './Status'
 import icons_chats from '../imgs/icons_chats.png'
 import badgeicon from '../imgs/badge.png'
 
-const URL = 'wss://msvserver.herokuapp.com/';
+const URL = 'wss://pedantic-booth-602e89.netlify.com/';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('worker.js');
 }

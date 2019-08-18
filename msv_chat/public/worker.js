@@ -1,4 +1,4 @@
-const URL = 'wss://msvserver.herokuapp.com/';
+const URL = 'wss://pedantic-booth-602e89.netlify.com/';
 let ws;
 let interval;
 
