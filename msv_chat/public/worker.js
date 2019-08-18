@@ -1,4 +1,4 @@
-const URL = 'wss://msvaesome.firebaseapp.com';
+const URL = 'wss://msvserver.herokuapp.com/';
 let ws;
 let interval;
 
