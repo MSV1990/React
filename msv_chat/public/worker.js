@@ -1,4 +1,4 @@
-const URL = 'wss://wssproxy.herokuapp.com';
+const URL = 'wss://msvserver.herokuapp.com/';
 let ws;
 let interval;
 
